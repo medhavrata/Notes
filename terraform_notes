@@ -1,0 +1,16 @@
+
+1. Provider: This is the service provider where Terraform will create the resources by using the provider APIs. Provider can be AWS/Azure/GCP and many others.
+
+2. Resource: We can create the resources in the provider infrastructure. Terraform triggers the provider APIs to create the resources.
+
+3. Terraform init - This command will download the Provider Plugin.
+
+4. Terraform plan - This command will show what resources will be created once we apply the confirugation.
+
+5. Terraform Apply - This command will create the resources.
+
+6. Variables: We can create the variables in the same main file or in the separate file and then refer the variables in the main file(preferred way).
+
+7. Output: In the main terraform script, we can define the output block to output the value of any specific resource. Like DNS value for the server.
+
+8. List, Count & Length: 
