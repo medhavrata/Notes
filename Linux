@@ -1,0 +1,42 @@
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+lspci - 
+
+via this command, we can check the PCI devices detected via kernel
+
+lsusb - 
+
+via this command, we can check the usb devices attached to the system, detected by kernel
+
+Go to /dev
+
+To check all the hardware devices detected by kernel and the names provided to the devices. The names to the devices is being provided by 'udev' which runs in 
+the background and provide the names. If the distro allows, we can update the rules to provide the names.
+
+Go to /etc/udev 
+
+To check all the rules via which 'udev' service provides the names to the devices.
+
+lsmod -
+
+via this command, we can check all the modules loaded with kernel, modules are the drivers which are needed so that the hardware can work. When kernel detects
+the hardware, it gives a name, but in order for hardware to work, it needs a driver to be present.
+
+rmmod -
+
+via this command, we can remove the modules as well, so the hardware will be there but kernel won't use the hardware as the module(driver) is being removed.
+But this change is temporary, when the os reboot,the driver will be loaded again. To make this change permanent, we need to make an entry in the blacklist file.
+
+/etc/modprobe.d
+
+go to this directory and there will be some backlisted files, make an entry in the file for hardware to be loaded, and it will be permanent.
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Running Linux in VM
+
+- The names assigned by udev will be different
+- Might need to install some additional tools so that Linux works well
+- Need to look for shut down options to make sure the machine is actually going to sleep
+
+
