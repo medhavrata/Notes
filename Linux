@@ -41,9 +41,27 @@ Running Linux in VM
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-Linux Boot Process
+Linux Boot Process -
 
-<img width="762" alt="image" src="https://user-images.githubusercontent.com/10562673/144059224-11d802f2-1dc1-4dff-8c04-d03bca4f1e0f.png">
+Below are the five stages of Linux Boot Process.
+
+1. BIOS/UEFI (Basic I/O system)
+
+2. MBR/GPT (Master Boot Record)
+
+3. GRUB2 (Grand Unified Bootloader)
+
+4. Initrd / Kernel
+
+5. systemd
+
+Files are present in the /boot directory.
+
+GRUB picks up the location to boot the OS. It there are more than one OS,then it will show all the option to choose from. 
+
+/etc/default/grub   --> This file has settings defined for the grub file. If you change this file, run 'update-grub' afterwards to update /boot/grub/grub.cfg
+
+/etc/grub.d  --> This contains files which GRUB2 will combine and compile. We can edit these files
 
 
 
