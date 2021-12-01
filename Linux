@@ -64,6 +64,88 @@ GRUB picks up the location to boot the OS. It there are more than one OS,then it
 /etc/grub.d  --> This contains files which GRUB2 will combine and compile. We can edit these files
 
 
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Terminal on Linux -
+
+Terminal is the UI which we can use to execute the commands. Under the hood, the terminal uses a Shell, it might be bash, zsh or some other shell.
+
+ps (processes show) - run this command to see which shell is being running
+
+uname (unix name) - this command will show the os
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Managing Processes -
+
+When Linux OS boots, it will start a lot of processes. Each process is assigned a PID (process identifier). The process starts and finishes and that PID number 
+is not assigned again to another process, so you will see the gaps in the PIDs.
+
+ps - this command will show the processes for the current user
+ps -aux : this command will show all the processes for all the users across machine
+top - this command will show the processes who are consuming more CPU/Memory
+free - this command will show the free resources on the machine
+
+
+--> We can put some interactive programs to background and bring to foreground when need to work again for e.g. if we are working on editing a file via 
+    vim, then while working on vim, use command 'ctrl + z' and it will bring the vim application to background. 
+    We can check all the jobs in background via 'jobs' command and can bring the application to foreground via '%1' command.
+    There are 'fg' and 'bg' commands as well to put application to foreground & background.
+    But this is for interactive applications and once we will close the terminal, there applications will be close as well.
+    
+    If we have to run the services in the background, then we need to use 'systemctl' command which is being controlled by 'systemd'
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Execution Priorities -
+
+NOTE: In the above setion we have seen that we can put processes in the background by using 'ctrl + z', but this command can keep the process running
+or might stop the process. If we want the process to keep running in background then use '&' at the end of command.
+
+When Linux OS starts, it executes a lot of processes and on top of that the user can also runs the processes. Linux kernel treats all the processes
+equally so each process gets it's turn for CPU usage. But there might be scenarios where the user would like to provide a priority to a particular 
+process, so in that case the process can be started with 'nice' command. The syntax is:
+
+nice -n <n> command
+
+The priority can go from -20 to 19
+
+The less the priority number, the more priority the process will get, like if the priority number is '-10' then the process will take priority from '+10'
+
+There is a default priority of each distro, so support the default priority is 10, then the general users can run the process with priority 10 or more, but
+only admin can run the processes with priorty 9 or less
+
+If need to amend the priority while process is running, use below command:
+
+renice -n <n> PID -u <username>
+
+
+
+Kill a Process:
+  - run 'top' command, use 'k' and provide the PID number to kill the process
+  - run the command 'kill <PID>'
+  
+If we run 'kill -l' , we can see all the options, but three are main:
+  - number1 'SIGHUP', (Signal hangup) it is asking the process to reset or reload
+  - number9 'SIGKILL' , it will kill the process
+  - number15 'SIGTERM', it will ask the process to terminate
+  
+kill -9 <PID>
+
+
+We can also kill all the threads of a particular process by name and it will kill the process for all the users: 'killall chrome'
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
 
 
 
