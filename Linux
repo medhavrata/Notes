@@ -115,7 +115,7 @@ The priority can go from -20 to 19
 
 The less the priority number, the more priority the process will get, like if the priority number is '-10' then the process will take priority from '+10'
 
-There is a default priority of each distro, so support the default priority is 10, then the general users can run the process with priority 10 or more, but
+There is a default priority of each distro, so suppose the default priority is 10, then the general users can run the process with priority 10 or more, but
 only admin can run the processes with priorty 9 or less
 
 If need to amend the priority while process is running, use below command:
@@ -140,6 +140,31 @@ We can also kill all the threads of a particular process by name and it will kil
 
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+nano editor - We can open more than one buffer(files) at the same time in nano and can move around to work on the files.
+
+while doing search/replace, there is no undo option in nano, so it's better to take a backup of file before doing search/replace.
+
+vi/vim editor - run command ': set number' so that the file will display the line numbers
+
+y - yank (copy) the line
+p - put the line
+
+ZZ - might be used in place of ':wq'
+
+:e! - to undo the changes and reload the file from disk
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
 
 
 
