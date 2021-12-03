@@ -158,6 +158,36 @@ ZZ - might be used in place of ':wq'
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+Customizing Bash -
+
+Bash configuration files are present at two places:
+    - Configuration files local for the User, these are available in home directory(.bashrc, .profile)
+    - Global configuration files(these are present in /etc directory)
+    
+    
+- We can create the variables in .bashrc file, but those will be local to shell, if need global variables, put export while declaring the variable
+- We can create the alias in the .bashrc file
+- We can also create the functions in the .bashrc file
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Piping - 
+
+Many newer commands supprot piping, but some older command doesn't, like mkdir.
+If we make a file and input the folders which we have to make and pipe the file to mkdir, it will not work.
+
+cat foldernames.txt | mkdir 
+
+the above command will give an error.
+
+We can use 'xargs' which support piping and will do the job.
+
+cat foldernames.txt | xargs mkdir
+
+
+
 
 
 
