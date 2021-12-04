@@ -225,6 +225,8 @@ Working with checksums -
     
 - Checksums are being used to ensure that the file is not modified during transmission
 
+- 'md5sum' is not considered much secure
+
 - 'shasum' is considered to be more secure, it has different versions like 'sha128sum' 'sha256sum' 'sha512sum'
 
 - The bigger the number, the more digits it will produce, the more diffucult to break it
