@@ -187,7 +187,53 @@ We can use 'xargs' which support piping and will do the job.
 cat foldernames.txt | xargs mkdir
 
 
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+Redirect - 
+
+- If we don't need any output, we can redirect that to /dev/null. Whatever goes to /dev/null, that is gone.
+
+find / -name *.doc 2> /dev/null
+
+- If need to write the output to screen and to the file, use the 'tee' command.
+
+
+find / -name *.doc 2> /dev/null | tee list.txt
+
+- While doing sort, it sorts on many factors and as the output of 'ls -lh' have incosistent output means the spaces are not consistent, so it is hard for
+  sort to analyze each line. We can use 'tr' command in these situations
+  
+  ls -lh | tr -s " " "      " | sort -r -t "        " -k 9
+  
+  (to use tab in bash shell use 'ctrl +v + tab'
+  
+  
+- the above command will provide all the columns in the output, if we just need only few columns, use the 'cut'command
+
+  ls -lh | tr -s " " "      " | sort -r -t "        " -k 9 | cut -d "       " -f 5,9
+  
+  
+- Use 'egrep' if need to use regular expression with grep
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Working with checksums -
+
+- To check which checksum utility are present use,
+    ls /usr/bin/*sum
+    
+- Checksums are being used to ensure that the file is not modified during transmission
+
+- 'shasum' is considered to be more secure, it has different versions like 'sha128sum' 'sha256sum' 'sha512sum'
+
+- The bigger the number, the more digits it will produce, the more diffucult to break it
+
+- But the bigger number will take more time to create the checksum for bigger files, so need to make a balance
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
