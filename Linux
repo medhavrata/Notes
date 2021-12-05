@@ -237,14 +237,49 @@ Working with checksums -
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+Locating Files/Binaries:
+
+- We can use below commands:
+
+        - type: it will tell whether the command is binary or function
+           'type vim'
+        - locate: it maintains a database, so it takes a lot of harddisk space and database needs to be updated so that this can work fine
+           ' locate vim'
+        - whereis: it searches in the $PATH and give all the instances, but won't tell which one will be executed
+           ' whereis vim'
+        - which: it searches in the $PATH and will give the first hit, which will eventually be executed by Bash
+           ' which vim'
+           
+           
+     
+
+- Find Command (check that in this command we use '-name' instead of '--name':
+
+    - This command is useful to search the files with name/size/etc...
+    - 'find / -name *.pdf'
+    - 'find / -size +20M'
 
 
 
+- 'Grep -r' command to find the files:
+    - We can use the 'grep -r' command to find the files as well based on the content
+    - Use 'grep -r "Test' /
+    - In this command, we first provide the word which needs to be searched and then the path, this is opposited to find command
 
 
 
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+Hard and Soft Link -
 
+- Hard link points to a specific raw data, so it can't be created for a directory.
+- Hard Link can only be created with the same volume/same harddisk
+- After file permissions there is a number, that number tells how many hardlinks are there for a file
+- To create the hardlink, 'ln text.txt text-link.txt'
+
+- Soft link points to a path, so soft link can be created for a directory
+- To create the softlink for a file, 'ln -s text.txt text-link.txt'
+- To create a softlink for a directory, 'ln -s /home/Desktop/Data/Linux/Work /home/medha'
 
 
 
