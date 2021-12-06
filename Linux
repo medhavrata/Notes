@@ -283,6 +283,97 @@ Hard and Soft Link -
 
 
 
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+File Ownership -
+
+- Whenever we create a new file/directory, it picks up the owner/group information of the user who is creating the file/directory
+- If we run the 'id' command, we can see the owner/group id, this is where system picks up the information and assign to the new file/directory
+- The owner is important for a file/directory, as if we remove all the permissions from file/directory, then also the owner can access the file/directory
+- To change the owner of a file/directory,
+    - chown <new-owner> file
+- To change the owner/group of a file/directory,
+    - chown <new-owner> : <new-group> file
+- To change the group of a file/directory,
+    - chgrp <new-group> file
+
+
+- If we change the owner of a directory, the files created inside the directory doesn't inherit the owner, but files inherit the permissions of a directory
+- If we want that the new files created inside a directory inherit the group of the directory, we need to use the sticky bit
+    - chmod g+s <directory>
+- We can verify whether a directory has sticky bit set by looking into the directory permissions,
+    - drwxrwsrwx 1 root root 4 Dec 10:49 new-file.txt
+    - We can see that in the group permissions, there is a 's' , which indicates that sticky bit applied on the group
+    - sticky bit only set the group inside the directory for the new files created, not on the existing files
+    - if we copy a file to the directory, where sticky bit is applied, it will set the group of the file to the same as directory group, as copy creates a new file
+    - if we move a file to the directory, where sticky bit is applied, it will not a file to the directory, where sticky bit is applied, as move doesn't creates a new file
+    
+
+
+
+POSIX Based file permissions - 
+
+
+- When we create a new directory, it gets some default permissions, but from where it gets the permission,
+    - it can get the permissions from /etc/profile
+    - or the permissions might be in .bashrc
+    - but eventually all the permissions are maintained by 'umask' i.e. umask provides the default permissions
+    
+
+
+
+ACL (Access Control List) or FACL (File Access Control List) Based file permissions - 
+
+
+fstab - filesystem table
+
+
+- The challange with POSIX based file permissions are, that they support one owner, one group and others.
+- ACL allows a list of users/groups and we can define what permission each user/group will have, this is not possible with POSIX based permissions.
+- Now as each computer is connected to network, we would like to have more than one user or group to have access to a file/directory.
+- When we assign the FACL based permissions, the POSIX permission will not go away
+- On some distro, the ACL might be a active by default or we might need to activate the ACL
+- When we mount a volume, there we need to define whether we want ACL to be active
+- We can check this at /etc/fstab
+- We can check the defaults of a volume by:
+    $ tune2fs -l /dev/sda5
+
+
+- Two main commands to work with ACLs:
+    - getfacl
+    - setfacl
+    
+    
+    
+- To check whether the ACLs are applied to a Directory/File
+    - there will be a '+' sign at the end of permissions, like
+        drwxrwxrwx+ 1 .......
+- To set the permissions:
+    $ setfacl -m u:<username>:rw <filename>
+    $ setfacl -m g:<groupname>:rw <filename>
+
+- To check the FACL permissions:
+    $ getfactl <filename>
+
+- But when we set the ACL by this way on directory, the files created inside the directory will not inherit these permissions
+    $ setfacl -m g:<groupname>:r <directory>
+    
+- So we need to set the FACL by some extra option so that the permissions will be inherited by files created inside the directory
+    $ setfacl -m d:g:<groupname>:r <directory>
+    
+- The 'd' option is the default permissions of a directory which the new files will inherit from directory
+
+- when we set the FACL, it will create a mask (max permissions) as well, mask is a set of permissions i.e.the maximum permission a user/group can have.
+
+
+
+
+
+
+
+
+
+
 
 
 
