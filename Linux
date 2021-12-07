@@ -11,11 +11,11 @@ via this command, we can check the usb devices attached to the system, detected 
 Go to /dev
 
 To check all the hardware devices detected by kernel and the names provided to the devices. The names to the devices is being provided by 'udev' which runs in 
-the background and provide the names. If the distro allows, we can update the rules to provide the names.
+the background and provide the names. If the distro allows, we can update the rules to assign the names.
 
 Go to /etc/udev 
 
-To check all the rules via which 'udev' service provides the names to the devices.
+To check all the rules via which 'udev' service assigns the names to the devices.
 
 lsmod -
 
@@ -24,12 +24,12 @@ the hardware, it gives a name, but in order for hardware to work, it needs a dri
 
 rmmod -
 
-via this command, we can remove the modules as well, so the hardware will be there but kernel won't use the hardware as the module(driver) is being removed.
+via this command, we can remove the modules, so the hardware will be there but kernel won't use the hardware as the module(driver) is being removed.
 But this change is temporary, when the os reboot,the driver will be loaded again. To make this change permanent, we need to make an entry in the blacklist file.
 
 /etc/modprobe.d
 
-go to this directory and there will be some backlisted files, make an entry in the file for hardware to be loaded, and it will be permanent.
+go to this directory and there will be some backlisted files, make an entry in the file for module to be removed, and it will be permanent change.
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -72,7 +72,7 @@ Terminal is the UI which we can use to execute the commands. Under the hood, the
 
 ps (processes show) - run this command to see which shell is being running
 
-uname (unix name) - this command will show the os
+uname (unix name) - this command will show the os details
 
 
 
@@ -84,16 +84,16 @@ When Linux OS boots, it will start a lot of processes. Each process is assigned 
 is not assigned again to another process, so you will see the gaps in the PIDs.
 
 ps - this command will show the processes for the current user
-ps -aux : this command will show all the processes for all the users across machine
+ps aux : this command will show all the processes for all the users across machine
 top - this command will show the processes who are consuming more CPU/Memory
 free - this command will show the free resources on the machine
 
 
 --> We can put some interactive programs to background and bring to foreground when need to work again for e.g. if we are working on editing a file via 
     vim, then while working on vim, use command 'ctrl + z' and it will bring the vim application to background. 
-    We can check all the jobs in background via 'jobs' command and can bring the application to foreground via '%1' command.
+    We can check all the jobs in background via 'jobs' command and can bring the application to foreground via '%1' command, for first job.
     There are 'fg' and 'bg' commands as well to put application to foreground & background.
-    But this is for interactive applications and once we will close the terminal, there applications will be close as well.
+    But this is for interactive applications and once we will close the terminal, these applications will be closed as well.
     
     If we have to run the services in the background, then we need to use 'systemctl' command which is being controlled by 'systemd'
 
@@ -102,8 +102,8 @@ free - this command will show the free resources on the machine
 
 Execution Priorities -
 
-NOTE: In the above setion we have seen that we can put processes in the background by using 'ctrl + z', but this command can keep the process running
-or might stop the process. If we want the process to keep running in background then use '&' at the end of command.
+NOTE: In the above section we have seen that we can put processes in the background by using 'ctrl + z', but this command can keep the process running
+or might stop the processes. If we want the process to keep running in background then use '&' at the end of command.
 
 When Linux OS starts, it executes a lot of processes and on top of that the user can also runs the processes. Linux kernel treats all the processes
 equally so each process gets it's turn for CPU usage. But there might be scenarios where the user would like to provide a priority to a particular 
@@ -116,7 +116,7 @@ The priority can go from -20 to 19
 The less the priority number, the more priority the process will get, like if the priority number is '-10' then the process will take priority from '+10'
 
 There is a default priority of each distro, so suppose the default priority is 10, then the general users can run the process with priority 10 or more, but
-only admin can run the processes with priorty 9 or less
+only admin can run the processes with priority 9 or less
 
 If need to amend the priority while process is running, use below command:
 
@@ -131,12 +131,13 @@ Kill a Process:
 If we run 'kill -l' , we can see all the options, but three are main:
   - number1 'SIGHUP', (Signal hangup) it is asking the process to reset or reload
   - number9 'SIGKILL' , it will kill the process
-  - number15 'SIGTERM', it will ask the process to terminate
+  - number15 'SIGTERM', it will ask the process to terminate gracefully
   
 kill -9 <PID>
 
 
-We can also kill all the threads of a particular process by name and it will kill the process for all the users: 'killall chrome'
+We can also kill all the threads of a particular process by name and it will kill the process for all the users: 
+    $ killall chrome
 
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -175,8 +176,8 @@ Bash configuration files are present at two places:
 
 Piping - 
 
-Many newer commands supprot piping, but some older command doesn't, like mkdir.
-If we make a file and input the folders which we have to make and pipe the file to mkdir, it will not work.
+Many newer commands support piping, but some older command doesn't, like mkdir.
+If we make a file and input the directories which we have to make and pipe the file to mkdir, it will not work.
 
 cat foldernames.txt | mkdir 
 
@@ -191,7 +192,7 @@ cat foldernames.txt | xargs mkdir
 
 Redirect - 
 
-- If we don't need any output, we can redirect that to /dev/null. Whatever goes to /dev/null, that is gone.
+- If we don't need any output, we can redirect that to /dev/null. Whatever goes to /dev/null, is gone.
 
 find / -name *.doc 2> /dev/null
 
@@ -200,8 +201,8 @@ find / -name *.doc 2> /dev/null
 
 find / -name *.doc 2> /dev/null | tee list.txt
 
-- While doing sort, it sorts on many factors and as the output of 'ls -lh' have incosistent output means the spaces are not consistent, so it is hard for
-  sort to analyze each line. We can use 'tr' command in these situations
+- While doing sort, it sorts on many factors and as the output of 'ls -lh' have inconsistent output format means the spaces are not consistent, so it is hard for
+  sort to analyze each line. We can use 'tr' (translate) command in these situations
   
   ls -lh | tr -s " " "      " | sort -r -t "        " -k 9
   
@@ -262,9 +263,9 @@ Locating Files/Binaries:
 
 
 - 'Grep -r' command to find the files:
-    - We can use the 'grep -r' command to find the files as well based on the content
+    - We can use the 'grep -r' command to find the files based on the content
     - Use 'grep -r "Test' /
-    - In this command, we first provide the word which needs to be searched and then the path, this is opposited to find command
+    - In this command, we first provide the word which needs to be searched and then the path, this is opposite to find command
 
 
 
@@ -273,8 +274,8 @@ Locating Files/Binaries:
 Hard and Soft Link -
 
 - Hard link points to a specific raw data, so it can't be created for a directory.
-- Hard Link can only be created with the same volume/same harddisk
-- After file permissions there is a number, that number tells how many hardlinks are there for a file
+- Hard Link can only be created within the same volume/same harddisk
+- After file permissions there is a number, that number tells how many hardlinks are present for a file
 - To create the hardlink, 'ln text.txt text-link.txt'
 
 - Soft link points to a path, so soft link can be created for a directory
@@ -288,7 +289,7 @@ Hard and Soft Link -
 File Ownership -
 
 - Whenever we create a new file/directory, it picks up the owner/group information of the user who is creating the file/directory
-- If we run the 'id' command, we can see the owner/group id, this is where system picks up the information and assign to the new file/directory
+- If we run the 'id' command, we can see the owner/group id, this is from where system picks up the information and assign to the new file/directory
 - The owner is important for a file/directory, as if we remove all the permissions from file/directory, then also the owner can access the file/directory
 - To change the owner of a file/directory,
     - chown <new-owner> file
@@ -307,7 +308,8 @@ File Ownership -
     - sticky bit only set the group inside the directory for the new files created, not on the existing files
     - if we copy a file to the directory, where sticky bit is applied, it will set the group of the file to the same as directory group, as copy creates a new file
     - if we move a file to the directory, where sticky bit is applied, it will not a file to the directory, where sticky bit is applied, as move doesn't creates a new file
-    
+  
+- We can apply the sticky bit to User or Group on the directory permissions, and the new files created will take the same user/group as of directory.   
 
 
 
@@ -364,6 +366,140 @@ fstab - filesystem table
 - The 'd' option is the default permissions of a directory which the new files will inherit from directory
 
 - when we set the FACL, it will create a mask (max permissions) as well, mask is a set of permissions i.e.the maximum permission a user/group can have.
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Shared Libraries -
+
+- Shared Libraries are common piece of functionality present which can be shared among many processes.If any process needs a particular functionality and 
+the functionality is present in the library, then the program can include the shared library instead of writing the functionality again.
+
+- Libraries are present at:
+    - /lib
+    - /lib32
+    - /lib64
+    - /usr/lib
+    - /usr/lib32
+    - /usr/lib64
+    - some other places as well
+
+
+
+- To check all the library information, run the below command (ldconfig = library deamon configuration):
+    $ ldconfig -v
+
+
+- ldconfig picks up the configuration from below files:
+    $ /etc/ld.so.conf
+    $ /etc/ld.so.conf.d
+    
+    
+- To check what libraries a particular process is using, use the below command (ldd = library deamon dependency):
+
+    $ ldd /bin/bash
+    $ ldd /bin/vim
+    
+    
+- If we want to create our own libraries, the safe place is to create in the home folder under '/home/user/.local/lib'
+- After creating a lib directory in the home directory, need to update 'ldconfig' so that it can pick up the local libraries as well.
+
+    $ sudo ldconfig -n /home/user/.local/lib
+    
+- We can also update the 'ldconfig' configuration so that liconfig can update the local libraries:
+
+    $ sudo cp x86_64_linux-gnu.conf ./custom.conf
+
+    $ sudoedit custom.conf  (add /home/user/.local/lib in this custom.conf file)
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Managing Software Packages - 
+
+
+(Debian Based Distro)
+
+- There are three package managers which can be used on Debian Based Distros for software Management:
+
+1. dpkg -> this was the first one, but it doesn't track dependencies while installing the packages
+
+2. apt-get -> this comes second and it install the dependencies as well while installing the packages and maitaines a database to track the dependencies.
+              But the challanges is that when more packages are being installed, it becomes challenging for apt-get to manage the database.
+
+3. apt -> this is the latest one and similar to apt-get but much efficient to track the database to track dependencies
+
+
+- Each Distro maintains a list of repositories to install the packages
+- This repo is being placed at: /etc/apt/sources.list & /etc/apt/sources.list.d
+
+- When we run the command: 'sudo apt install mc', it pulls the packages from the local repo maintains by the distro
+
+- We can also install the package from internet and store on local disk and then provide the name of local file while installing the package:
+    $ sudo apt install <local-file-download-path>
+    
+- Some packages provides the instruction on how we can add the package to '/etc/apt/sources.list.d' and then update.
+    - we can check this for 'webmin'
+
+
+- There is a service called 'automatic-update' which runs in the background once/day to update the packages in '/etc/apt/sources.list'. But this service
+    runs for full install OS.
+
+- Sequence for installing packages:
+    - sudo apt update (this will just update the database for apt)
+    - sudo apt upgrade (this will update the actual packages)
+    - sudo apt dist-upgrade (this will update the kernel version)
+    - sudo apt remove (this will remove the packages)
+    - sudo apt autoremove (this will remove any dependency which is not being used by any package)
+    
+    
+    
+
+
+(Red Hat Distro)
+
+
+- There are three package managers:
+
+1. rpm - redhat package manager , not great for installing dependencies, it install the packages offline i.e. from local disk
+2. yum - yellowdog update manager, install dependencies as well, for larger packages it might miss a dependency
+3. dnf - (latest) it handles the dependency database management much better than yum
+
+- rpm install softwares offline i.e. doesn't go to internet and take package from local disk
+
+- yum, dnf install packages via internet
+
+- yum install packages from redhat official repo
+
+- There is a repo which each distro maintains to install the packages: 
+    $ /etc/yum/repos.d/
+
+- If a software not available in the repo, we can install some software from internet locally and then can install
+
+    $ sudo rpm install <local-pkg> or 
+    $ sudo yum install <local-pkg> or
+    $ sudo dnf install <local-pkg>
+
+- Some software packages provides the info to update the repo and then install the software like 'webwin'
+
+-  We can install dnf-automatic package, which will run as per the defined frequency and updates the packages, but RHEL will not allow this
+
+- To update the software packages:
+    $ sudo yum update (to update both s/w and kernel)
+
+- To remove a software package:
+    $ sudo yum remove
+
+- To remove from dnf:
+    $ sudo dnf autoremove
+
+- When we remove the packages via 'sudo yum remove <pkg>' command, it removes the package but keeps a cache copy, run below command to remove the cache copy:
+    $ sudo yum erase <pkg> 
+
+
 
 
 
