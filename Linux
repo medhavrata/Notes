@@ -1,5 +1,4 @@
-------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
+------------------------------------------------------------------------------------------------------------------------------------------------------
 lspci - 
 
 via this command, we can check the PCI devices detected via kernel
@@ -31,16 +30,14 @@ But this change is temporary, when the os reboot,the driver will be loaded again
 
 go to this directory and there will be some backlisted files, make an entry in the file for module to be removed, and it will be permanent change.
 
-------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
+------------------------------------------------------------------------------------------------------------------------------------------------------
 Running Linux in VM
 
 - The names assigned by udev will be different
 - Might need to install some additional tools so that Linux works well
 - Need to look for shut down options to make sure the machine is actually going to sleep
 
-------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
+------------------------------------------------------------------------------------------------------------------------------------------------------
 Linux Boot Process -
 
 Below are the five stages of Linux Boot Process.
@@ -64,7 +61,7 @@ GRUB picks up the location to boot the OS. It there are more than one OS,then it
 /etc/grub.d  --> This contains files which GRUB2 will combine and compile. We can edit these files
 
 
-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Terminal on Linux -
 
@@ -76,7 +73,7 @@ uname (unix name) - this command will show the os details
 
 
 
-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Managing Processes -
 
@@ -98,7 +95,7 @@ free - this command will show the free resources on the machine
     If we have to run the services in the background, then we need to use 'systemctl' command which is being controlled by 'systemd'
 
 
-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Execution Priorities -
 
@@ -140,7 +137,7 @@ We can also kill all the threads of a particular process by name and it will kil
     $ killall chrome
 
 
-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 nano editor - We can open more than one buffer(files) at the same time in nano and can move around to work on the files.
@@ -157,8 +154,7 @@ ZZ - might be used in place of ':wq'
 :e! - to undo the changes and reload the file from disk
 
 
-------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
+------------------------------------------------------------------------------------------------------------------------------------------------------
 Customizing Bash -
 
 Bash configuration files are present at two places:
@@ -172,7 +168,7 @@ Bash configuration files are present at two places:
 
 
 
-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Piping - 
 
@@ -188,8 +184,7 @@ We can use 'xargs' which support piping and will do the job.
 cat foldernames.txt | xargs mkdir
 
 
-------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
+------------------------------------------------------------------------------------------------------------------------------------------------------
 Redirect - 
 
 - If we don't need any output, we can redirect that to /dev/null. Whatever goes to /dev/null, is gone.
@@ -217,7 +212,7 @@ find / -name *.doc 2> /dev/null | tee list.txt
 - Use 'egrep' if need to use regular expression with grep
 
 
-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Working with checksums -
 
@@ -236,7 +231,7 @@ Working with checksums -
 
 
 
-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Locating Files/Binaries:
 
@@ -269,7 +264,7 @@ Locating Files/Binaries:
 
 
 
-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Hard and Soft Link -
 
@@ -284,7 +279,7 @@ Hard and Soft Link -
 
 
 
-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------
 
 File Ownership -
 
@@ -306,8 +301,10 @@ File Ownership -
     - drwxrwsrwx 1 root root 4 Dec 10:49 new-file.txt
     - We can see that in the group permissions, there is a 's' , which indicates that sticky bit applied on the group
     - sticky bit only set the group inside the directory for the new files created, not on the existing files
-    - if we copy a file to the directory, where sticky bit is applied, it will set the group of the file to the same as directory group, as copy creates a new file
-    - if we move a file to the directory, where sticky bit is applied, it will not a file to the directory, where sticky bit is applied, as move doesn't creates a new file
+    - if we copy a file to the directory, where sticky bit is applied, it will set the group of the file to the same as directory group, as copy creates a 
+        new file
+    - if we move a file to the directory, where sticky bit is applied, it will not a file to the directory, where sticky bit is applied, as move doesn't 
+        creates a new file
   
 - We can apply the sticky bit to User or Group on the directory permissions, and the new files created will take the same user/group as of directory.   
 
@@ -369,7 +366,7 @@ fstab - filesystem table
 
 
 
-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Shared Libraries -
 
@@ -416,7 +413,7 @@ the functionality is present in the library, then the program can include the sh
 
 
 
-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Managing Software Packages - 
 
@@ -501,7 +498,7 @@ Managing Software Packages -
 
 
 
-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Supporting Services:
 
@@ -628,6 +625,77 @@ sudo systemctl start apache2
 If need to configure our own application as a service, create a service file in /etc/systemd/system and manage it with systemctl.
 
 If we amend an existing service, run 'sudo systemctl daemon-reload' so that the changes can be pickec up, no need to run if creating a new service
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Managing Storage -
+
+
+
+
+
+Creating Partitions with fdisk & gdisk -
+
+
+- fdisk -> for MBR partitions
+
+- gdisk -> for GPT partitions
+
+- Run below command to do the partition using fdisk
+    $ sudo fdisk /dev/sda
+
+- Run below command to do the partition using gdisk 
+    $ sudo gdisk /dev/sdb
+
+- There are three main options for fdisk/gdisk:
+    - p -> to print the partitions
+    - n -> to create a new partition
+    - w -> to write the partion to disk
+
+- Commands to check the disk partitions:
+    - mount
+    - lsblk
+
+
+
+
+
+Creating Partitions with parted:
+
+
+parted - more modern tool, can do both MBR, GPT
+
+gparted - graphical parted
+
+- Run below command to create a partion
+    - sudo parted
+
+
+
+
+
+Linux File Systems:
+
+EXT
+XFS
+BTRFS
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
