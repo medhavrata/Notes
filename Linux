@@ -501,8 +501,131 @@ Managing Software Packages -
 
 
 
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Supporting Services:
 
 
+- When Kernel starts, it triggers the init system which is responsible to run all the further processes
+- init system is a separate application than kernel
+- There are three init systems:
+
+1. system-V init: (system 5 initialization), first init system created for Unix, (not good to track the removable hardware like usb), collection of scripts
+2. upstart - came after sysvinit, very similar to sysvinit and collection of scripts, it was originally developed for the Ubuntu distro v6 in 2006, 
+            completely compatible with sysvinit and track the removable hardware, but it was not very powerful and executed the processes sequentially
+3. systemd - developed in 2010 by Red hat, more powerful than upstart, can run processes in parallel, this is the default init system now a days and 
+            used by the major distros
+         
+- To verify which init is being running by the kernel, check all the processes, as init is the first process which is being triggered by the kernel, so check
+the process with process id 1 and by that we will get to know which init kernel is running. If it is pointing to systemd then we know that kernel is using 
+systemd, if it is using just init, then it might be sysvinit or upstart, to check this further, go to the man page for init, and there we can check 
+whether it is for sysvinit or upstart.
+
+
+
+
+
+
+Introduction to SysVinit:
+
+- when SysVinit starts, it is a binary which runs and it picks up the config files, the config files are placed at below paths:
+    $ /etc/rc.d   rc.local rc.sysinit
+    $ /etc/rc.local, rc.sysinit
+
+- check the script in rc.sysinit config file, this is being loaded by SysVinit
+
+- rc.local - for user changes
+- rc.sysinit - provided by distro, it there are any changes, this file will be overwritten
+
+- init system tracks the state of machine via run levels
+
+- /etc/inittab (init table) - to check all the run level of machine, this contains the default run level to which machine will boot
+
+- run levels are -> from 0 to 6
+
+- config files for run level 0 to 6 are present at:
+    - /etc/rc.d/rc0.d...rc6.d
+
+- first rc.sysinit runs and then run level confg (for e.g. rc0.d) files will be execued
+
+- to check the run level:
+        $ runlevel
+        $ who -r
+        
+- We can change the run level of a machine, if we change the run level to reboot then the system will reboot, but some run levels doesn't need reboot,       
+    - 'sudo init 3' or 'sudo telinit 3' -> this will change the run level to 3 without rebooting
+    - 'sudo init 5' or 'sudo telinit 5' -> this will change the run level to 5 without rebooting
+
+
+
+
+Managing services with SysVinit:
+
+
+
+We don't need to edit the config files, we can manage the services via two commands, 'chkconfig' & 'service'
+
+$ sudo chkconfig httpd on -> this will set the service to run on boot
+
+$ sudo service httpd status/start/stop/restart -> to control the status of service
+
+$ sudo chkconfig --list (to see on what run levels the service will run)
+
+$ sudo chkconfig --level 35 httpd on -> this will set the service to run on boot on run levels 3,5
+
+$ /etc/rc.d/init.d - some run levels run from init.d
+
+
+
+
+
+
+Introduction to systemd:
+
+
+service == deamon, program that does in the background
+
+can run scripts in parallel, faster boot time, not backward compatible,
+
+/lib/systemd/system - systemd configuration, these are called units, part of distro
+/etc/systemd/system - user provided custom changes
+
+
+
+/lib/systemd/system - has the files for the services, ssh.service
+/lib/systemd/system - it has the targets which are being executed by systemd
+
+
+systemd does not have runlevels, so it maps the runlevels to the targets, for backward compatability
+
+
+systemctl get-default -> this will provide the default target in which the system boots
+
+sudo systemctl set-default multi-user.target -> this will change the default-target to boot
+
+sudo systemctl isolate multi-user.target -> it will change the default target without rebooting
+
+sudo systemctl isolate graphical.target -> to move gui without rebooting
+
+
+
+Managing services with systemd:
+
+
+systemd works on the target, it has the default target like multi-user.target, and it boots the system from target. We can check what targets/services 
+will get loaded in this target.
+
+sudo systemctl enable ssh -> to tell systemd to run ssh service at boot time, but will not start the service
+
+sudo systemctl enagle --now ssh -> it will run the service at boot time and now as well
+
+sudo systemctl status apache2
+
+sudo systemctl enable --now apache2
+
+sudo systemctl start apache2
+
+If need to configure our own application as a service, create a service file in /etc/systemd/system and manage it with systemctl.
 
 
 
