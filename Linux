@@ -627,7 +627,7 @@ sudo systemctl start apache2
 
 If need to configure our own application as a service, create a service file in /etc/systemd/system and manage it with systemctl.
 
-
+If we amend an existing service, run 'sudo systemctl daemon-reload' so that the changes can be pickec up, no need to run if creating a new service
 
 
 
