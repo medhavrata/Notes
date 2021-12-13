@@ -687,15 +687,33 @@ BTRFS
 
 UUID = Universal Unique Identifier
 
+df -h (disk full)
+
+
+
+du (disk utilization)
+
+du -h
+
+sudo du -chd 1 /
+
+-c == count
+-h == human readable
+-d == directory depth (1 in this case)
+/ == do this at root level(can be done at any other level as well)
+
+
+If system is performing slow, it might be due to IOPS not performing well, some utilities to track this(kernel tells the correct stats):
+
+sysstat iotop
+
+iostat - part of sysstat
+sudo iotop
 
 
 
 
-
-
-
-
-
+Removable Storage-
 
 
 
