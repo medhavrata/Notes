@@ -3,6 +3,9 @@ lspci -
 
 via this command, we can check the PCI devices detected via kernel
 
+A PCI device is any piece of computer hardware that plugs directly into a PCI slot on a computer's motherboard. PCI, which stands for Peripheral 
+Component Interconnect, was introduced to personal computers by the Intel Corporation in 1993.
+
 lsusb - 
 
 via this command, we can check the usb devices attached to the system, detected by kernel
